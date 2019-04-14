@@ -28,10 +28,15 @@ session = db.session # to make queries easy
 
 class Car(db.Model):
     __tablename__ = "cars"
+    id = db.Column(db.Integer, primary_key=True)
+
 
 class Make(db.Model):
     __tablename__ = "makes"
+    id = db.Column(db.Integer, primary_key=True)
+
 
 
 class EngineType(db.Model):
     __tablename__ = "enginetypes"
+    id = db.Column(db.Integer, primary_key=True)
