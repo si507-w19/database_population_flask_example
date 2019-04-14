@@ -22,6 +22,7 @@ def get_or_create_car_make(database_session_to_act_on, make_name):
 
 
 def get_or_create_car(database_session_to_act_on, car_data_list):
+    """Accepts list of data about a car -- can assume this is of the format of a row of the sample cars.csv file -- and uses that to save a new car and build relationships appropriately."""
     pass
 
 # Above functions all tools to be properly invoked in the main_populate function to do the full population of db; they are available should other types of data need to be handled with them (unlikely if you're depending on an existing dataset)
