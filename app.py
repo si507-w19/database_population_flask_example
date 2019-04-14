@@ -19,3 +19,20 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Set up Flask debug stuff
 db = SQLAlchemy(app) # For database use
 session = db.session # to make queries easy
+
+##### Set up Models #####
+
+# TODO: relationships to set up
+# One to many: each Car has only one EngineType, each engine type may be associated with many cars
+# One to many: each car has one make, each make may be associated with many cars
+# Many to many: 
+
+class Car(db.Model):
+    pass # To fill in based on data to store
+
+class Make(db.Model):
+    pass # To fill in based on data to store
+    # Do I have all the data I migt want for a car make right now? Maybe not now, but start simple.
+
+class EngineTypes(db.Model):
+    pass # To fill in based on data to store
