@@ -63,12 +63,15 @@ class EngineType(db.Model):
     cars = db.relationship('Car', backref="enginetype") # Same as seen in Make model - relationship setup
 
 
+## Routes
+
+@app.route('/')
+def home():
+    pass # With the db populated, can develop routes that query the db, or even add to it/change it...
+
 if __name__ == '__main__':
     db.create_all() # This will create database in current directory, as set up, if it doesn't exist, but won't overwrite if you restart - so no worries about that
-    with open("cars.csv", newline="") as csvfile:
-        reader = csv.DictReader(csvfile)
-        for ln in reader:
-            # print(ln) # an OrderedDict
-            get_or_create_car(ln) # ln should be a dictionary
-    # OK ,this worked so let's make this neater!
+    # IMPORTANT: Only run main_populate if the population of the db is necessary -- becasue it takes a while! If it's already been done, and .db/sqlite file exists, comment it out. This is somethign that would need to be clarified very clearly in a README.
+    # TODO a neater way of handling this (an example of future work that may not be worth time in a few short weeks if this is brand new stuff)
+    main_populate("cars.csv") # Or whatever filename
     app.run() # run with this: python main_app.py runserver

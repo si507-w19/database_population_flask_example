@@ -52,6 +52,15 @@ def main_populate(dataset_filename):
     """Accepts dataset filename with expected CSV format. Opens CSV file, loads contents, closes file appropriately, and invokes above functions to populate database"""
     # We'll use CSV module to handle CSV data
     # First we'll want to run a quick test to see if one of those things works... see in app.py running
+    try:
+        with open(dataset_filename, newline="") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for ln in reader:
+                # print(ln) # an OrderedDict
+                get_or_create_car(ln) # ln should be a dictionary
+    except:
+        return False # Could TODO raise exception to specify what went wrong, but this could be OK
+
 
 
 if __name__ == "__main__":
