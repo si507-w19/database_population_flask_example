@@ -27,11 +27,11 @@ session = db.session # to make queries easy
 # One to many: each car has one make, each make may be associated with many cars
 
 class Car(db.Model):
-    pass # To fill in based on data to store
+    __tablename__ = "cars"
 
 class Make(db.Model):
-    pass # To fill in based on data to store
-    # Do I have all the data I migt want for a car make right now? Maybe not now, but start simple.
+    __tablename__ = "makes"
 
-class EngineTypes(db.Model):
-    pass # To fill in based on data to store
+
+class EngineType(db.Model):
+    __tablename__ = "enginetypes"
