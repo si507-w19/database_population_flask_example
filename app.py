@@ -34,6 +34,7 @@ class Car(db.Model):
     automatic_transmission = db.Column(db.Boolean)
     city_mpg = db.Column(db.Integer)
     highway_mpg = db.Column(db.Integer)
+    model_year = db.Column(db.String(250))
     driveline = db.Column(db.String(250))
     horsepower = db.Column(db.Integer) # Decided based on data -a\ always integer here - string also reasonable
     year_release = db.Column(db.Integer) # reasonable to use a special date/datetime type in appropriate way if needed more detail, but will only ever need a year here, and null is possible
