@@ -25,7 +25,6 @@ session = db.session # to make queries easy
 # TODO: relationships to set up
 # One to many: each Car has only one EngineType, each engine type may be associated with many cars
 # One to many: each car has one make, each make may be associated with many cars
-# Many to many: 
 
 class Car(db.Model):
     pass # To fill in based on data to store
