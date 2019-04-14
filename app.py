@@ -30,14 +30,17 @@ session = db.session # to make queries easy
 class Car(db.Model):
     __tablename__ = "cars"
     id = db.Column(db.Integer, primary_key=True)
-    # make reference will come from a backref on make - cars
     automatic_transmission = db.Column(db.Boolean)
     city_mpg = db.Column(db.Integer)
     highway_mpg = db.Column(db.Integer)
-    model_year = db.Column(db.String(250))
+    model_year = db.Column(db.String(250)) # e.g. 2009 Audi A3 -- may have big variety
     driveline = db.Column(db.String(250))
     horsepower = db.Column(db.Integer) # Decided based on data -a\ always integer here - string also reasonable
+    torque = db.Column(db.String(250)) # Just being super generous on amount of chars for now
     year_release = db.Column(db.Integer) # reasonable to use a special date/datetime type in appropriate way if needed more detail, but will only ever need a year here, and null is possible
+    make_id = db.Column(db.Integer, db.ForeignKey("makes.id"))
+    enginetype_id = db.Column(db.Integer, db.ForeignKey("enginetypes.id"))
+
 
 
 class Make(db.Model):
@@ -45,8 +48,8 @@ class Make(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250)) # name of make e.g. Audi
     # Might add more info later -- but for now this is fine
-    # (this is why db org like this is important, because now adding detail about a make -- e.g. original name of inventor! active for purchase since... ? etc is reasonable and easily doable)
-    cars = db.relationship('cars', backref='make') # remember one to many relationship -- a make can be related to many cars
+    # (This is why db org like this is important, because now adding detail about a make -- e.g. original name of inventor! active for purchase since... ? etc is reasonable and easily doable.)
+    cars = db.relationship('Car', backref='make') # remember one to many relationship -- a make can be related to many cars
     # Backref -- so should be able to do <a car inst>.make ...
 
 
@@ -57,9 +60,15 @@ class EngineType(db.Model):
     # But I can imagine this being an item I'd want to add more data to later as well -- although for now it isn't as complicated as e.g. students, universities...
     name = db.Column(db.String(250))
     # And each engine type may have many cars, but each car has one
-    cars = db.relationship('cars', backref="enginetype") # Same as seen in Make model - relationship setup
+    cars = db.relationship('Car', backref="enginetype") # Same as seen in Make model - relationship setup
 
 
 if __name__ == '__main__':
     db.create_all() # This will create database in current directory, as set up, if it doesn't exist, but won't overwrite if you restart - so no worries about that
+    with open("cars.csv", newline="") as csvfile:
+        reader = csv.DictReader(csvfile)
+        for ln in reader:
+            # print(ln) # an OrderedDict
+            get_or_create_car(ln) # ln should be a dictionary
+    # OK ,this worked so let's make this neater!
     app.run() # run with this: python main_app.py runserver
